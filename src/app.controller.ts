@@ -2,7 +2,7 @@ import { Controller, Get } from '@nestjs/common';
 
 @Controller()
 export class AppController {
-  @Get('/env')
+  @Get('/envs')
   getEnv() {
     return {
       dummyVar1: process.env.DUMMY_VAR_1 || 'not set',
