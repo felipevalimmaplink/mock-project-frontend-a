@@ -1,0 +1,23 @@
+steps:
+  # Build the container image using Buildpacks
+  - name: 'gcr.io/k8s-skaffold/pack'
+    args:
+      - build
+      - southamerica-east1-docker.pkg.dev/migration-aws-469018/cloud-run-source-deploy/nestjs-cloudrun-demo
+      - --builder=gcr.io/buildpacks/builder:v1
+
+  # Deploy the built image to Cloud Run
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    entrypoint: gcloud
+    args:
+      - run
+      - deploy
+      - nestjs-cloudrun-demo
+      - --image=southamerica-east1-docker.pkg.dev/migration-aws-469018/cloud-run-source-deploy/nestjs-cloudrun-demo
+      - --platform=managed
+      - --region=southamerica-east1
+      - --allow-unauthenticated
+      - --set-env-vars=DUMMY_VAR_1=hello,DUMMY_VAR_2=world
+
+images:
+  - southamerica-east1-docker.pkg.dev/migration-aws-469018/cloud-run-source-deploy/nestjs-cloudrun-demo
