@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "dist/main.js",
   "scripts": {
+    "prebuild": "node validate-env.js",
     "build": "tsc",
     "start": "node dist/main.js"
   },
